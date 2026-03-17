@@ -1,184 +1,184 @@
-# AGENTS.md - Development Guidelines
+# AGENTS.md - Guías de Desarrollo
 
-This project is a hybrid application with two components:
-- **Backend**: Node.js/Express API (`mi-backend-login/`)
-- **Frontend**: Android Kotlin app (`app/`)
+Este proyecto es una aplicación híbrida con dos componentes:
+- **Backend**: API Node.js/Express (`mi-backend-login/`)
+- **Frontend**: Aplicación Android Kotlin (`app/`)
 
-## Build, Lint, and Test Commands
+## Comandos de Build, Lint y Pruebas
 
 ### Backend (Node.js/Express)
 
 ```bash
-# Navigate to backend directory
+# Navegar al directorio del backend
 cd mi-backend-login
 
-# Install dependencies
+# Instalar dependencias
 npm install
 
-# Run development server (with nodemon auto-reload)
+# Ejecutar servidor en desarrollo (con nodemon auto-reload)
 npm start
 
-# Run server manually
+# Ejecutar servidor manualmente
 node server.js
 
-# Run a single test (if tests exist)
-npm test -- --testNamePattern="test name"
+# Ejecutar una prueba individual (si existen pruebas)
+npm test -- --testNamePattern="nombre de la prueba"
 
-# Run all tests
+# Ejecutar todas las pruebas
 npm test
 ```
 
 ### Frontend (Android/Kotlin)
 
 ```bash
-# Build debug APK
+# Construir APK de depuración
 ./gradlew assembleDebug
 
-# Build release APK
+# Construir APK de lanzamiento
 ./gradlew assembleRelease
 
-# Run lint analysis
+# Ejecutar análisis de lint
 ./gradlew lint
 
-# Run a single test (unit tests)
-./gradlew test --tests "com.ricardo.loginapp.ExampleUnitTest.testName"
+# Ejecutar una prueba unitaria individual
+./gradlew test --tests "com.ricardo.loginapp.ExampleUnitTest.nombreTest"
 
-# Run a single instrumented test
-./gradlew connectedAndroidTest --tests "com.ricardo.loginapp.ExampleInstrumentedTest.testName"
+# Ejecutar una prueba instrumentada individual
+./gradlew connectedAndroidTest --tests "com.ricardo.loginapp.ExampleInstrumentedTest.nombreTest"
 
-# Run all unit tests
+# Ejecutar todas las pruebas unitarias
 ./gradlew test
 
-# Run all tests (unit + instrumented)
+# Ejecutar todas las pruebas (unitarias + instrumentadas)
 ./gradlew test connectedAndroidTest
 
-# Clean build
+# Limpiar build
 ./gradlew clean
 
-# Check dependencies for updates
+# Verificar actualizaciones de dependencias
 ./gradlew dependencyUpdates
 ```
 
-## Code Style Guidelines
+## Guías de Estilo de Código
 
-### General Principles
+### Principios Generales
 
-- Write clean, readable code with meaningful variable and function names
-- Keep functions small and focused (single responsibility)
-- Add proper error handling at all layers
-- Never expose secrets, keys, or passwords in code or logs
+- Escribir código limpio y legible con nombres significativos de variables y funciones
+- Mantener funciones pequeñas y enfocadas (responsabilidad única)
+- Agregar manejo de errores adecuado en todas las capas
+- Nunca exponer secretos, claves o contraseñas en código o logs
 
 ---
 
 ### Backend (JavaScript/Node.js)
 
-#### Imports
+#### Importaciones
 ```javascript
-// Use require for CommonJS (project uses "type": "commonjs")
+// Usar require para CommonJS (el proyecto usa "type": "commonjs")
 const express = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// Group imports: external libs, then internal modules
+// Agrupar importaciones: libs externas, luego módulos internos
 // const internalModule = require('./path/to/module');
 ```
 
-#### Naming Conventions
-- Variables/functions: `camelCase` (e.g., `userName`, `getUserById`)
-- Constants: `UPPER_SNAKE_CASE` (e.g., `MAX_RETRY_COUNT`)
-- Classes: `PascalCase` (e.g., `UserController`)
-- Files: `kebab-case.js` (e.g., `user-service.js`)
+#### Convenciones de Nombres
+- Variables/funciones: `camelCase` (ej., `userName`, `getUserById`)
+- Constantes: `UPPER_SNAKE_CASE` (ej., `MAX_RETRY_COUNT`)
+- Clases: `PascalCase` (ej., `UserController`)
+- Archivos: `kebab-case.js` (ej., `user-service.js`)
 
-#### Formatting
-- Use 2 spaces for indentation
-- Use single quotes for strings
-- Always use semicolons
-- Max line length: 100 characters
-- Use template literals for string interpolation
+#### Formato
+- Usar 2 espacios para indentación
+- Usar comillas simples para strings
+- Siempre usar punto y coma
+- Longitud máxima de línea: 100 caracteres
+- Usar template literals para interpolación de strings
 
-#### Error Handling
+#### Manejo de Errores
 ```javascript
-// Always use try-catch for async operations
+// Siempre usar try-catch para operaciones async
 try {
     const result = await someAsyncFunction();
 } catch (error) {
-    console.error('Error description:', error.message);
-    return res.status(500).json({ message: 'User-friendly error message' });
+    console.error('Descripción del error:', error.message);
+    return res.status(500).json({ message: 'Mensaje de error amigable' });
 }
 
-// Validate inputs at the start of functions
+// Validar entradas al inicio de las funciones
 if (!requiredParam) {
-    return res.status(400).json({ message: 'Validation error message' });
+    return res.status(400).json({ message: 'Mensaje de validación' });
 }
 
-// Never expose internal error details to clients
-// Good: res.status(500).json({ message: 'Error en el servidor' })
-// Bad: res.status(500).json({ message: error.stack })
+// Nunca exponer detalles internos de errores a los clientes
+// Bien: res.status(500).json({ message: 'Error en el servidor' })
+// Mal: res.status(500).json({ message: error.stack })
 ```
 
-#### API Response Format
+#### Formato de Respuesta de API
 ```javascript
-// Success responses
+// Respuestas exitosas
 res.status(200).json({ data: { ... } });
-res.status(201).json({ message: 'Resource created', data: { ... } });
+res.status(201).json({ message: 'Recurso creado', data: { ... } });
 
-// Error responses (never expose sensitive data)
-res.status(400).json({ message: 'Validation failed' });
-res.status(401).json({ message: 'Unauthorized' });
-res.status(404).json({ message: 'Resource not found' });
-res.status(500).json({ message: 'Internal server error' });
+// Respuestas de error (nunca exponer datos sensibles)
+res.status(400).json({ message: 'Validación fallida' });
+res.status(401).json({ message: 'No autorizado' });
+res.status(404).json({ message: 'Recurso no encontrado' });
+res.status(500).json({ message: 'Error interno del servidor' });
 ```
 
-#### Security
-- Never hardcode secrets; use environment variables
-- Validate and sanitize all user inputs
-- Use parameterized queries (if using a database)
-- Implement rate limiting for authentication endpoints
+#### Seguridad
+- Nunca hardcodear secretos; usar variables de entorno
+- Validar y sanitizar todas las entradas de usuario
+- Usar consultas parametrizadas (si se usa base de datos)
+- Implementar rate limiting para endpoints de autenticación
 
 ---
 
 ### Frontend (Kotlin/Android)
 
-#### Imports
+#### Importaciones
 ```kotlin
-// Group imports: android, androidx, third-party, project
+// Agrupar importaciones: android, androidx, third-party, proyecto
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.ricardo.loginapp.viewmodel.UserViewModel
 ```
 
-#### Naming Conventions
-- Classes: `PascalCase` (e.g., `MainActivity`, `UserRepository`)
-- Functions/variables: `camelCase` (e.g., `userName`, `getUserData()`)
-- Constants: `UPPER_SNAKE_CASE` (e.g., `MAX_RETRY_COUNT`)
-- Resource files: `snake_case` (e.g., `activity_main.xml`, `user_item.xml`)
+#### Convenciones de Nombres
+- Clases: `PascalCase` (ej., `MainActivity`, `UserRepository`)
+- Funciones/variables: `camelCase` (ej., `userName`, `getUserData()`)
+- Constantes: `UPPER_SNAKE_CASE` (ej., `MAX_RETRY_COUNT`)
+- Archivos de recursos: `snake_case` (ej., `activity_main.xml`, `user_item.xml`)
 
-#### Formatting
-- Use 4 spaces for indentation (Kotlin default)
-- Follow Kotlin coding conventions
-- Keep line length under 120 characters when possible
-- Use meaningful names for all identifiers
+#### Formato
+- Usar 4 espacios para indentación (default de Kotlin)
+- Seguir convenciones de código de Kotlin
+- Mantener longitud de línea bajo 120 caracteres cuando sea posible
+- Usar nombres significativos para todos los identificadores
 
-#### Types
-- Use Kotlin's type system effectively; avoid `Any` when possible
-- Use nullable types (`String?`) when a value can be null
-- Prefer `val` over `var`; use `var` only when mutation is necessary
+#### Tipos
+- Usar efectivamente el sistema de tipos de Kotlin; evitar `Any` cuando sea posible
+- Usar tipos nullable (`String?`) cuando un valor puede ser null
+- Preferir `val` sobre `var`; usar `var` solo cuando sea necesario mutación
 
-#### Error Handling
+#### Manejo de Errores
 ```kotlin
-// Use try-catch for operations that can fail
+// Usar try-catch para operaciones que pueden fallar
 try {
     val result = networkCall()
 } catch (e: NetworkException) {
-    // Handle specific exception types
-    showErrorMessage("Network error: ${e.message}")
+    // Manejar tipos de excepción específicos
+    showErrorMessage("Error de red: ${e.message}")
 } catch (e: Exception) {
-    // Catch generic exceptions last
-    Log.e("TAG", "Unexpected error", e)
+    // Capturar excepciones genéricas al final
+    Log.e("TAG", "Error inesperado", e)
 }
 
-// Use Result<T> for functions that can fail
+// Usar Result<T> para funciones que pueden fallar
 fun fetchUser(): Result<User> {
     return try {
         val user = api.getUser()
@@ -189,62 +189,62 @@ fun fetchUser(): Result<User> {
 }
 ```
 
-#### UI Development
-- Use ViewBinding or DataBinding
-- Follow Material Design guidelines
-- Handle loading and error states in UI
-- Use proper lifecycle-aware components
+#### Desarrollo de UI
+- Usar ViewBinding o DataBinding
+- Seguir guías de Material Design
+- Manejar estados de carga y error en la UI
+- Usar componentes conscientes del ciclo de vida
 
 ---
 
-### Git Conventions
+### Convenciones de Git
 
-- Use meaningful commit messages: `feat: add user login endpoint`
-- Commit types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-- Keep commits atomic (one logical change per commit)
-
----
-
-### Testing Guidelines
-
-#### Backend Tests
-- Use Jest or Mocha for testing
-- Group tests with `describe` blocks
-- Use clear test names: `should return 401 for invalid credentials`
-- Test both success and failure paths
-
-#### Android Tests
-- Unit tests: Use JUnit 4/5 with Kotlin
-- Instrumented tests: Use Espresso for UI testing
-- Test naming: `testMethodName_Scenario_ExpectedResult`
-- Keep tests independent; mock external dependencies
+- Usar mensajes de commit significativos: `feat: agregar endpoint de login`
+- Tipos de commit: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+- Mantener commits atómicos (un cambio lógico por commit)
 
 ---
 
-### File Organization
+### Guías de Pruebas
+
+#### Pruebas de Backend
+- Usar Jest o Mocha para pruebas
+- Agrupar pruebas con bloques `describe`
+- Usar nombres claros: `should return 401 for invalid credentials`
+- Probar tanto rutas de éxito como de falla
+
+#### Pruebas de Android
+- Pruebas unitarias: Usar JUnit 4/5 con Kotlin
+- Pruebas instrumentadas: Usar Espresso para pruebas de UI
+- Nombres de pruebas: `testMethodName_Escenario_ResultadoEsperado`
+- Mantener pruebas independientes; mockear dependencias externas
+
+---
+
+### Organización de Archivos
 
 ```
 Backend:
-├── server.js           # Entry point
-├── routes/             # API route handlers
-├── controllers/        # Business logic
-├── models/             # Data models
-├── middleware/         # Custom middleware
-└── utils/              # Helper functions
+├── server.js           # Punto de entrada
+├── routes/             # Manejadores de rutas de API
+├── controllers/        # Lógica de negocio
+├── models/            # Modelos de datos
+├── middleware/        # Middleware personalizado
+└── utils/             # Funciones helper
 
 Android:
-├── data/               # Repositories, data sources
-├── domain/             # Use cases, business logic
-├── ui/                 # Activities, Fragments, ViewModels
-├── di/                 # Dependency injection
-└── util/               # Utilities
+├── data/              # Repositorios, fuentes de datos
+├── domain/            # Casos de uso, lógica de negocio
+├── ui/                # Activities, Fragments, ViewModels
+├── di/                # Inyección de dependencias
+└── util/              # Utilidades
 ```
 
 ---
 
-### Dependencies
+### Dependencias
 
-- Keep dependencies up to date
-- Avoid adding unnecessary dependencies
-- Use well-maintained, stable libraries
-- Pin dependency versions for production
+- Mantener dependencias actualizadas
+- Evitar agregar dependencias innecesarias
+- Usar librerías bien mantenidas y estables
+- Fijar versiones de dependencias para producción

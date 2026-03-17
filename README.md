@@ -1,67 +1,67 @@
 # LoginApp
 
-A modern Android login and registration application with a Node.js/Express backend.
+Una aplicación moderna de inicio de sesión y registro para Android con un backend en Node.js/Express.
 
-## Project Description
+## Descripción del Proyecto
 
-LoginApp is a full-stack mobile application that provides secure user authentication. The Android frontend features modern, intuitive UI designs for login and registration screens, while the backend provides a RESTful API with SQLite database for persistent storage.
+LoginApp es una aplicación móvil de pila completa que proporciona autenticación segura de usuarios. El frontend de Android cuenta con diseños de UI modernos e intuitivos para las pantallas de inicio de sesión y registro, mientras que el backend proporciona una API REST con base de datos SQLite para almacenamiento persistente.
 
-## Features
+## Características
 
-- User registration with name, email, and password
-- Secure login with JWT authentication
-- Password hashing with bcrypt
-- Modern Material Design UI
-- Input validation
-- Error handling
-- RESTful API
+- Registro de usuarios con nombre, email y contraseña
+- Inicio de sesión seguro con JWT
+- Hash de contraseñas con bcrypt
+- UI moderna con Material Design
+- Validación de entrada
+- Manejo de errores
+- API RESTful
 
-## Technology Stack
+## Tecnologías Utilizadas
 
 ### Frontend (Android)
-- **Language**: Kotlin
-- **Architecture**: MVVM-ready with Clean Architecture
-- **UI**: XML Layouts with Material Design Components
-- **Networking**: Retrofit 2 + OkHttp
+- **Lenguaje**: Kotlin
+- **Arquitectura**: MVVM-ready con Clean Architecture
+- **UI**: Layouts XML con Componentes Material Design
+- **Redes**: Retrofit 2 + OkHttp
 - **Async**: Kotlin Coroutines
 - **JSON**: Gson
 
 ### Backend
 - **Runtime**: Node.js
 - **Framework**: Express.js
-- **Database**: SQLite
-- **Authentication**: JWT (JSON Web Tokens)
-- **Password Security**: bcrypt
+- **Base de datos**: SQLite
+- **Autenticación**: JWT (JSON Web Tokens)
+- **Seguridad de contraseñas**: bcrypt
 
-## Project Structure
+## Estructura del Proyecto
 
 ```
 LoginApp/
-├── app/                      # Android Application
+├── app/                      # Aplicación Android
 │   ├── src/main/
 │   │   ├── java/com/ricardo/loginapp/
-│   │   │   ├── api/          # Retrofit API client
-│   │   │   ├── model/        # Data models
+│   │   │   ├── api/          # Cliente Retrofit
+│   │   │   ├── model/        # Modelos de datos
 │   │   │   └── ui/           # Activities
-│   │   └── res/              # Resources (layouts, drawables, values)
+│   │   └── res/              # Recursos (layouts, drawables, values)
 │   └── build.gradle.kts
-├── mi-backend-login/         # Node.js Backend
-│   ├── model/               # Database models
-│   ├── database.js           # SQLite connection
-│   └── server.js             # Express server
-├── gradle/                   # Gradle wrapper
+├── mi-backend-login/         # Backend Node.js
+│   ├── model/                # Modelos de base de datos
+│   ├── database.js           # Conexión SQLite
+│   └── server.js             # Servidor Express
+├── gradle/                   # Wrapper de Gradle
 └── README.md
 ```
 
-## Getting Started
+## Primeros Pasos
 
-### Prerequisites
+### Requisitos Previos
 
-- Android Studio Arctic Fox or later
+- Android Studio Arctic Fox o posterior
 - Node.js 14+ 
-- npm or yarn
+- npm o yarn
 
-### Backend Setup
+### Configuración del Backend
 
 ```bash
 cd mi-backend-login
@@ -69,70 +69,69 @@ npm install
 npm start
 ```
 
-The server will run on `http://localhost:3004`
+El servidor se ejecutará en `http://localhost:3004`
 
-### Android Setup
+### Configuración de Android
 
-1. Open the project in Android Studio
-2. Wait for Gradle sync to complete
-3. Run the app on an emulator or device
+1. Abre el proyecto en Android Studio
+2. Espera a que Gradle sincronice
+3. Ejecuta la app en un emulador o dispositivo
 
-## API Endpoints
+## Endpoints de la API
 
-| Method | Endpoint | Description |
+| Método | Endpoint | Descripción |
 |--------|----------|-------------|
-| POST | `/api/register` | Register a new user |
-| POST | `/api/login` | Login and get JWT token |
+| POST | `/api/register` | Registrar un nuevo usuario |
+| POST | `/api/login` | Iniciar sesión y obtener token JWT |
 
-### Register Request
+### Solicitud de Registro
 ```json
 {
-  "nombre": "John Doe",
-  "email": "john@example.com",
+  "nombre": "Juan Perez",
+  "email": "juan@ejemplo.com",
   "password": "password123"
 }
 ```
 
-### Login Request
+### Solicitud de Inicio de Sesión
 ```json
 {
-  "email": "john@example.com",
+  "email": "juan@ejemplo.com",
   "password": "password123"
 }
 ```
 
-### Login Response
+### Respuesta de Inicio de Sesión
 ```json
 {
   "message": "Login exitoso",
   "token": "eyJhbGciOiJIUzI1NiIs...",
   "user": {
     "id": 1,
-    "nombre": "John Doe",
-    "email": "john@example.com"
+    "nombre": "Juan Perez",
+    "email": "juan@ejemplo.com"
   }
 }
 ```
 
-## Screenshots
+## Capturas de Pantalla
 
-The app features modern Material Design layouts with:
-- Login screen with email and password fields
-- Registration screen with name, email, password, and confirm password fields
-- Input validation with error messages
-- Loading states
-- Toast notifications
+La app cuenta con diseños modernos de Material Design:
+- Pantalla de inicio de sesión con campos de email y contraseña
+- Pantalla de registro con campos de nombre, email, contraseña y confirmar contraseña
+- Validación de entrada con mensajes de error
+- Estados de carga
+- Notificaciones toast
 
-## Build
+## Construcción
 
-### Android Debug APK
+### APK de Depuración Android
 
 ```bash
-./gradlew assembleDebug
-```
+./gradlew assembleDebug```
 
-The APK will be generated at `app/build/outputs/apk/debug/app-debug.apk`
+El APK se generará en `app/build/outputs/apk/debug/app-debug.apk`
 
-## License
+## Licencia
 
-ISC License
+Licencia ISC
