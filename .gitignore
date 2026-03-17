@@ -63,6 +63,6 @@ lint/tmp/
 Thumbs.db
 
 # Backend
-mi-backend-login/node_modules/
-mi-backend-login/*.db
-mi-backend-login/.env
+node_modules/
+*.db
+.env
